@@ -1,0 +1,696 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=STXihei:300,300italic,400,400italic,700,700italic|Simhei:300,300italic,400,400italic,700,700italic|STXihei:300,300italic,400,400italic,700,700italic|STXihei:300,300italic,400,400italic,700,700italic|consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数据结构,LeetCode," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="二叉树的遍历是一个很简单的东西，递归的写法三行两就写完了，非递归的写法以前做题的时候是模拟栈特性来做，今天看到个Morris遍历，感觉比较有趣，只需要O(N)的时间复杂度和O(1)的空间复杂度。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="遍历二叉树">
+<meta property="og:url" content="http://yoursite.com/2017/04/05/TreeTraversal/index.html">
+<meta property="og:site_name" content="以有涯随无涯，殆已">
+<meta property="og:description" content="二叉树的遍历是一个很简单的东西，递归的写法三行两就写完了，非递归的写法以前做题的时候是模拟栈特性来做，今天看到个Morris遍历，感觉比较有趣，只需要O(N)的时间复杂度和O(1)的空间复杂度。">
+<meta property="og:updated_time" content="2017-04-06T12:27:59.340Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="遍历二叉树">
+<meta name="twitter:description" content="二叉树的遍历是一个很简单的东西，递归的写法三行两就写完了，非递归的写法以前做题的时候是模拟栈特性来做，今天看到个Morris遍历，感觉比较有趣，只需要O(N)的时间复杂度和O(1)的空间复杂度。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/05/TreeTraversal/"/>
+
+
+
+
+
+  <title> 遍历二叉树 | 以有涯随无涯，殆已 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">以有涯随无涯，殆已</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/05/TreeTraversal/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Ridsea">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="以有涯随无涯，殆已">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="以有涯随无涯，殆已" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                遍历二叉树
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-05T20:00:52+08:00">
+                2017-04-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>二叉树的遍历是一个很简单的东西，递归的写法三行两就写完了，非递归的写法以前做题的时候是模拟栈特性来做，今天看到个Morris遍历，感觉比较有趣，只需要O(N)的时间复杂度和O(1)的空间复杂度。<a id="more"></a><br>首先遍历分为前序、中序和后序三种方式，这三种方式的区别在于遍历的次序。前序遍历先遍历自身，然后遍历左子树，最后遍历右子树。中序遍历先遍历左子树，然后遍历自身，最后遍历右子树。后序遍历先遍历左子树，再遍历右子树，最后遍历自身。</p>
+<h3 id="二叉树的递归遍历"><a href="#二叉树的递归遍历" class="headerlink" title="二叉树的递归遍历"></a>二叉树的递归遍历</h3><p>这个就很简单了，只要按照三种遍历的次序不同，简单的更改代码执行的顺序就好了。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Preorder_Traversal</span><span class="params">(TreeNode *root)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (root)</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; root-&gt;val &lt;&lt; <span class="string">" "</span>;</div><div class="line">    <span class="keyword">if</span> (root-&gt;left)</div><div class="line">        Preorder_Traversal(root-&gt;left);</div><div class="line">    <span class="keyword">if</span> (root-&gt;right)</div><div class="line">        Preorder_Traversal(root-&gt;right);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Inorder_Traversal</span><span class="params">(TreeNode *root)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (root-&gt;left)</div><div class="line">        Inorder_Traversal(root-&gt;left);</div><div class="line">    <span class="keyword">if</span> (root)</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; root-&gt;val &lt;&lt; <span class="string">" "</span>;</div><div class="line">    <span class="keyword">if</span> (root-&gt;right)</div><div class="line">        Inorder_Traversal(root-&gt;right);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Postorder_Traversal</span><span class="params">(TreeNode *root)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (root-&gt;left)</div><div class="line">        Postorder_Traversal(root-&gt;left);</div><div class="line">    <span class="keyword">if</span> (root-&gt;right)</div><div class="line">        Postorder_Traversal(root-&gt;right);</div><div class="line">     <span class="keyword">if</span> (root)</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; root-&gt;val &lt;&lt; <span class="string">" "</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>非常简单，不再解释。不过说一下的是在递归过程中因为需要运行时栈内存，因此对于非平衡树空间复杂度为O(N)，对于平衡树而言递归的空间复杂度为O(logN)，时间复杂度均为O(N)。</p>
+<h3 id="二叉树的非递归遍历"><a href="#二叉树的非递归遍历" class="headerlink" title="二叉树的非递归遍历"></a>二叉树的非递归遍历</h3><p>在以前写题的时候写过非递归遍历分别对应以下的LeetCode题号：<br><a href="https://leetcode.com/problems/binary-tree-preorder-traversal/#/description" target="_blank" rel="external">LeetCode 144. Binary Tree Preorder Traversal</a><br><a href="https://leetcode.com/problems/binary-tree-inorder-traversal/#/description" target="_blank" rel="external">LeetCode 94. Binary Tree Inorder Traversal</a><br><a href="https://leetcode.com/problems/binary-tree-postorder-traversal/#/description" target="_blank" rel="external">LeetCode 145. Binary Tree Postorder Traversal</a><br>第一个是前序遍历，前序遍历要求先输出当前的节点，然后再遍历左子树，最后遍历右子树。那么如何在循环中模拟递归的问题，我们用一个栈（或者<code>vector</code>也可以）模拟递归的过程，把栈顶的元素作为当前节点。因此步骤是：<br>（1）把树的根节点放入栈<br>（2）把栈顶元素作为当前节点，并取出（<code>pop</code>），输出该节点<br>（3）如果当前节点右子树存在，把右子节点入栈<br>（4）如果当前节点左子树存在，把左子节点入栈<br>（5）重复2，3，4步，直到栈为空<br>这个过程和递归的思想基本一致，保存右子节点，然后再保存左子节点，同时去除当前节点（已经遍历）。右子节点先入栈，后出栈，左子节点后入栈，先出栈，因此右子节点（右子树）比左子节点（左子树）晚遍历，下一次循环的时候，相当于当前节点变为上一次的左子节点（如果存在），然后按照上面的模式把左子树都遍历了一遍，全部遍历完了，再遍历右子树，保证了遍历的顺序。<br>对于一次循环而言，无法知道当前节点处于何处，因此只需要把右子树放在左子树的后面遍历就可以，只要每个节点都保证这个顺序，那么整个先序遍历就是正确的。此处也利用了栈的特性，在栈顶的优先被遍历。这又有点递归的感觉了，不过不是用递归来写，也有点像数学的归纳法（每个节点满足顺序，整个遍历就是对的）。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; preorderTraversal(TreeNode* root) &#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec;</div><div class="line">        <span class="built_in">stack</span>&lt;TreeNode*&gt; stk;</div><div class="line">        <span class="keyword">if</span>(root)stk.push(root);</div><div class="line">        <span class="keyword">while</span>(!stk.empty())&#123;</div><div class="line">            TreeNode* temp=stk.top();</div><div class="line">            vec.push_back(temp-&gt;val);</div><div class="line">            stk.pop();</div><div class="line">            <span class="keyword">if</span>(temp-&gt;right)stk.push(temp-&gt;right);</div><div class="line">            <span class="keyword">if</span>(temp-&gt;left)stk.push(temp-&gt;left);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> vec;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>接下来写中序遍历，中序遍历要求先遍历左子树，然后输出当前节点，最后遍历右子树。那么那么用栈怎么实现呢，思考递归的方式，当我们遍历一棵树的时候，传进来一个根节点，代码会一直递归直到整棵树最左边的节点，然后输出该节点，再遍历该节点的右子树。然后返回到上一层递归。<br>因此最重要的是如何用栈遍历左子树，然后输出当前节点，再遍历右子树。这里直接模拟递归调用，对于一个<code>root</code>节点，把它的左子节点一直放入栈里面（相当于递归遍历左子树的过程），当到了最左边的时候，把栈顶节点遍历（输出当前节点），然后出栈，同时把该节点的右子节点当成新的根节点重复这一过程。<br>一个元素出栈的时候，它的左子节点已经出栈（输出了），这也就意味着左子树已经遍历完了，它的右子节点会该节点出栈后马上入栈，接着遍历右子树。整个过程能否满足左子树都在当前节点的前面，右子树都在后面？注意我们的循环过程，每一次都把<code>root</code>当成一个新的根节点，然后一路往左，直到最左边，然后出栈，遍历该节点，再把右子树当成一棵新的树来处理。因此我们可以确保每个节点都被遍历，同时保证遍历顺序。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; inorderTraversal(TreeNode* root) &#123;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec;</div><div class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; stk;</div><div class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</div><div class="line">        <span class="keyword">while</span> (root) &#123;</div><div class="line">            stk.push(root);</div><div class="line">            root = root-&gt;left;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (!stk.empty()) &#123;</div><div class="line">            root = stk.top()-&gt;right;</div><div class="line">            vec.push_back(stk.top()-&gt;val);</div><div class="line">            stk.pop();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> vec;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>后序遍历要复杂一些，后序要求遍历左子树在，然后遍历右子树，最后输出自身节点，关键的问题在于如何确定当前这个节点要被输出还是先遍历其右子树。这里分两种情况，第一种是右子节点不存在，第二种是右子节点存在。那么对于一个当前节点来说就要根据这两种情况作出区分。<br>我们用一个指针记录上一次被遍历的节点。因为在后序遍历中，根节点是最后被遍历的，在遍历子树的时候最后遍历的必然是左子节点或者是右子节点，根据这个特性可以区分出左右子树是否已经被遍历过了。可以给出以下区分的方法：<br>（1）当前右子节点不存在，那么应该输出当前节点，并且更新<code>last</code>指针<br>（2）当前的子节点存在，而且<code>last</code>指针不指向右子节点，那么应该遍历右子树，因此把右子树作为新的树遍历<br>（3）当前的右子节点存在，<code>last</code>指针指向右子节点，因此左右子树都已经遍历完了，可以遍历该节点并且更新<code>last</code><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; postorderTraversal(TreeNode* root) &#123;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec;</div><div class="line">    <span class="built_in">stack</span>&lt;TreeNode*&gt; stk;</div><div class="line">    TreeNode*last = <span class="literal">nullptr</span>;</div><div class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</div><div class="line">        <span class="keyword">while</span> (root) &#123;</div><div class="line">            stk.push(root);</div><div class="line">            root = root-&gt;left;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (stk.empty())<span class="keyword">break</span>;</div><div class="line">        <span class="keyword">if</span> (!stk.top()-&gt;right || stk.top()-&gt;right == last) &#123;</div><div class="line">            vec.push_back(stk.top()-&gt;val);</div><div class="line">            last = stk.top();</div><div class="line">            stk.pop();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (stk.top()-&gt;right) &#123;</div><div class="line">            root = stk.top()-&gt;right;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> vec;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在这里中序和后序的解决方法有些相似之处，就是说对于一棵树而言，我们模拟递归的过程，只要拿到了一棵树就马上一路往左，直到最左边的节点，然后再以处理一颗新的树的形式来处理每个节点的右子树。每次弹出一个节点都代表该节点及其子树都被遍历。<br><strong>Update</strong>：后来我翻了一下LeetCode的讨论区的大神解答，感觉上面的代码还是不够简洁，这里就贴一下代码和链接<br><a href="https://discuss.leetcode.com/topic/30632/preorder-inorder-and-postorder-iteratively-summarization" target="_blank" rel="external">LeetCode discuss:preorder-inorder-and-postorder-iteratively-summarization</a><br><a href="https://discuss.leetcode.com/topic/23405/java-simple-and-clean" target="_blank" rel="external">LeetCode discuss:java-simple-and-clean</a><br><a href="https://discuss.leetcode.com/topic/7427/a-very-concise-solution" target="_blank" rel="external">LeetCode discuss:a-very-concise-solution</a><br>前序遍历：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; preorderTraversal(TreeNode* root) &#123;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec;</div><div class="line">    <span class="built_in">stack</span>&lt;TreeNode*&gt; stk;</div><div class="line">    <span class="keyword">while</span> (!stk.empty() || root) &#123;</div><div class="line">        <span class="keyword">if</span> (root) &#123;</div><div class="line">            vec.push_back(root-&gt;val);</div><div class="line">            stk.push(root);</div><div class="line">            root = root-&gt;left;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            root = stk.top()-&gt;right;</div><div class="line">            stk.pop();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> vec;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>中序遍历：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; inorderTraversal(TreeNode* root) &#123;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec;</div><div class="line">    <span class="built_in">stack</span>&lt;TreeNode*&gt; stk;</div><div class="line">    <span class="keyword">while</span> (!stk.empty() || root) &#123;</div><div class="line">        <span class="keyword">if</span> (root) &#123;</div><div class="line">            stk.push(root);</div><div class="line">            root = root-&gt;left;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            vec.push_back(stk.top()-&gt;val);</div><div class="line">            root = stk.top()-&gt;right;</div><div class="line">            stk.pop();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> vec;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>后序遍历：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; postorderTraversal(TreeNode* root) &#123;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec;</div><div class="line">    <span class="built_in">stack</span>&lt;TreeNode*&gt; stk;</div><div class="line">    <span class="keyword">while</span> (!stk.empty() || root) &#123;</div><div class="line">        <span class="keyword">if</span> (root) &#123;</div><div class="line">            stk.push(root);</div><div class="line">            vec.push_back(root-&gt;val);</div><div class="line">            root = root-&gt;right;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            root = stk.top()-&gt;left;</div><div class="line">            stk.pop();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    reverse(vec.begin(), vec.end());</div><div class="line">    <span class="keyword">return</span> vec;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如此简洁明了,感觉自己就跟个智障一样Orz。</p>
+<h3 id="二叉树的Morris遍历"><a href="#二叉树的Morris遍历" class="headerlink" title="二叉树的Morris遍历"></a>二叉树的Morris遍历</h3><p>Morris遍历用到了线索二叉树的概念，利用空闲的叶子节点的指针来找后继结点，最后实现<code>O(n)</code>时间复杂度和<code>O(1)</code>的空间复杂度的遍历。<br>这里先写中序遍历，步骤为：<br>（1）如果当前节点的左子节点为空，则<strong>输出当前的节点</strong>，并且把它的右子节点作为当前节点<br>（2）如果当前节点的左子节点不为空，那么寻找该节点在左子树中的前驱节点（即左子树的最右节点）<br>（2.a）如果前驱节点的右子节点为空，那么将它的右子节点设置为当前节点，并且把当前节点的左子节点作为新的当前节点<br>（2.b）如果前驱节点的右子节点为当前节点，那么将其右子节点重新设置为空（恢复树形状），<strong>输出当前节点</strong>，把当前节点的右子节点作为新的当前节点<br>（3）重复上述1，2的步骤直到当前节点为空<br>非常巧妙的是在左子树遍历之前，把根节点的前驱节点的右儿子指向跟节点，然后遍历左子树，最后通过该前驱节点回到原来的根节点，并且把修改过的左子树复原。<br>这里如何保持中序，首先如果左子树不存在，那么直接输出好了，然后转向右子树，当左子树存在的时候，当前节点只有在发现前驱节点指向自己时输出，那么左子树遍历完了，可以输出当前节点。<br>实际上，每一次要返回上一层的时候，都是通过提前设置的前驱节点的右儿子来实现的。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">inorderTraversal</span><span class="params">(TreeNode *root)</span> </span>&#123;</div><div class="line">    TreeNode *prev = <span class="literal">nullptr</span>;</div><div class="line">    <span class="keyword">while</span> (root) &#123;</div><div class="line">        <span class="keyword">if</span> (root-&gt;left) &#123;</div><div class="line">            prev = root-&gt;left;</div><div class="line">            <span class="keyword">while</span> (prev-&gt;right&amp;&amp;prev-&gt;right != root) &#123;</div><div class="line">                prev = prev-&gt;right;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (prev-&gt;right) &#123;</div><div class="line">                prev-&gt;right = <span class="literal">nullptr</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                prev-&gt;right = root;</div><div class="line">                root = root-&gt;left;</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">cout</span>&lt;&lt;root-&gt;val&lt;&lt;<span class="string">" "</span>;</div><div class="line">        root = root-&gt;right;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>代码逻辑还是比较清楚地，步骤第一个如果左子节点不存在，输出，转向右子树；左子树存在的时候去找到前驱，然后判断前驱是否指向自身，如果指向自身那么输出，如果没有指向自身那么就把前驱节点指向当前节点。如果要比较好的理解这个算法，还是要一步一步画个图比较好，手动画图对照程序可以有更深入的理解。<br>接下来看前序遍历的步骤：<br>（1）如果当前节点的左子节点为空，则<strong>输出当前的节点</strong>，并且把它的右子节点作为当前节点<br>（2）如果当前节点的左子节点不为空，那么寻找该节点在左子树中的前驱节点（即左子树的最右节点）<br>（2.a）如果前驱节点的右子节点为空，那么将它的右子节点设置为当前节点，<strong>输出当前节点</strong>，并且把当前节点的左子节点作为新的当前节点<br>（2.b）如果前驱节点的右子节点为当前节点，那么将其右子节点重新设置为空（恢复树形状），把当前节点的右子节点作为新的当前节点<br>（3）重复上述1，2的步骤直到当前节点为空<br>跟中序不同的地方只有一点，那就是输出的地方不一样。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">preorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</div><div class="line">    TreeNode *prev = <span class="literal">nullptr</span>;</div><div class="line">    <span class="keyword">while</span> (root) &#123;</div><div class="line">        <span class="keyword">if</span> (root-&gt;left) &#123;</div><div class="line">            prev = root-&gt;left;</div><div class="line">            <span class="keyword">while</span> (prev-&gt;right&amp;&amp;prev-&gt;right != root) &#123;</div><div class="line">                prev = prev-&gt;right;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (prev-&gt;right) &#123;</div><div class="line">                prev-&gt;right = <span class="literal">nullptr</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                <span class="built_in">cout</span>&lt;&lt;root-&gt;val&lt;&lt;<span class="string">" "</span>;</div><div class="line">                prev-&gt;right = root;</div><div class="line">                root = root-&gt;left;</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="built_in">cout</span>&lt;&lt;root-&gt;val&lt;&lt;<span class="string">" "</span>;</div><div class="line">        &#125;</div><div class="line">        root = root-&gt;right;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Morris后序遍历比较麻烦，要求建立一个临时节点，并且其将<code>root</code>作为其的左子节点，同时需要两个节点之间路径翻转两次。步骤为：<br>（1）设立临时节点<code>dump</code>，并且将<code>root</code>作为其左子节点，然后从<code>dump</code>遍历<br>（2）如果当前节点的左子节点不存在，那么将其右子节点作为当前节点<br>（3）如果当前节点的左子节点不为空，那么寻找该节点在左子树中的前驱节点（即左子树的最右节点）<br>（3.a）如果前驱节点的右子节点为空，那么将它的右子节点设置为当前节点，并且把当前节点的左子节点作为新的当前节点<br>（3.b）如果前驱节点的右子节点为当前节点，那么将其右子节点重新设置为空（恢复树形状），<strong>倒序输出从当前节点的左孩子到前驱节点路径上的所有节点</strong>，把当前节点的右子节点作为新的当前节点<br>（4）重复上述2，3的步骤直到当前节点为空<br>确实略麻烦,需要注意的是完成翻转以后还要翻转回来。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">void reverseTreeNode(TreeNode* from, TreeNode *to) &#123;</div><div class="line">    if (from == to)return;</div><div class="line">    TreeNode* x = from, *y = from-&gt;right, *z;</div><div class="line">    while (x != to) &#123;</div><div class="line">        z = y-&gt;right;</div><div class="line">        y-&gt;right = x;</div><div class="line">        x = y;</div><div class="line">        y = z;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">void printTreeNode(TreeNode* from, TreeNode *to) &#123;</div><div class="line">    reverseTreeNode(from, to);</div><div class="line">    TreeNode* temp = to;</div><div class="line">    while (1) &#123;</div><div class="line">        cout &lt;&lt; temp-&gt;val &lt;&lt; " ";</div><div class="line">        if (temp == from)break;</div><div class="line">        temp = temp-&gt;right;</div><div class="line">    &#125;</div><div class="line">    reverseTreeNode(to, from);</div><div class="line">&#125;</div><div class="line">void postorderTraversal(TreeNode *root) &#123;</div><div class="line">    TreeNode dump(0), *prev = nullptr;</div><div class="line">    dump.left = root; root = &amp;dump;</div><div class="line">    while (root) &#123;</div><div class="line">        if (root-&gt;left) &#123;</div><div class="line">            prev = root-&gt;left;</div><div class="line">            while (prev-&gt;right&amp;&amp;prev-&gt;right != root) &#123;</div><div class="line">                prev = prev-&gt;right;</div><div class="line">            &#125;</div><div class="line">            if (prev-&gt;right) &#123;</div><div class="line">                printTreeNode(root-&gt;left, prev);</div><div class="line">                prev-&gt;right = nullptr;</div><div class="line">            &#125;</div><div class="line">            else &#123;</div><div class="line">                prev-&gt;right = root;</div><div class="line">                root = root-&gt;left;</div><div class="line">                continue;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        root = root-&gt;right;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>后序遍历每次遍历都要更改树的结构，然后再复原，但是其时间复杂度依旧是<code>O(N)</code>的。</p>
+<p>参考资料：<br>[1] <a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html" target="_blank" rel="external">http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/21/an-unsuccessful-written-test/" rel="next" title="记一次笔试编程题">
+                <i class="fa fa-chevron-left"></i> 记一次笔试编程题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Ridsea" />
+          <p class="site-author-name" itemprop="name">Ridsea</p>
+          <p class="site-description motion-element" itemprop="description">书写是为了更好地思考</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树的递归遍历"><span class="nav-number">1.</span> <span class="nav-text">二叉树的递归遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树的非递归遍历"><span class="nav-number">2.</span> <span class="nav-text">二叉树的非递归遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树的Morris遍历"><span class="nav-number">3.</span> <span class="nav-text">二叉树的Morris遍历</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ridsea</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 驱动
+</div>
+
+<div class="theme-info">
+  主题源自 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
