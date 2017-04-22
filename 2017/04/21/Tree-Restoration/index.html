@@ -1,0 +1,708 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Helvetica:300,300italic,400,400italic,700,700italic|SimHei:300,300italic,400,400italic,700,700italic|Times New Roman:300,300italic,400,400italic,700,700italic|KaiTi:300,300italic,400,400italic,700,700italic|consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hihoCoder," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="这也是一道编程题，当时写了好一会，这道题不难，题目的逻辑也很清楚，关键在于复现人在处理这个问题的思维。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tree restoration">
+<meta property="og:url" content="http://yoursite.com/2017/04/21/Tree-Restoration/index.html">
+<meta property="og:site_name" content="以有涯随无涯，殆已">
+<meta property="og:description" content="这也是一道编程题，当时写了好一会，这道题不难，题目的逻辑也很清楚，关键在于复现人在处理这个问题的思维。">
+<meta property="og:image" content="http://yoursite.com/2017/04/21/Tree-Restoration/tree.png">
+<meta property="og:updated_time" content="2017-04-22T04:07:29.451Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tree restoration">
+<meta name="twitter:description" content="这也是一道编程题，当时写了好一会，这道题不难，题目的逻辑也很清楚，关键在于复现人在处理这个问题的思维。">
+<meta name="twitter:image" content="http://yoursite.com/2017/04/21/Tree-Restoration/tree.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/21/Tree-Restoration/"/>
+
+
+
+
+
+  <title> Tree restoration | 以有涯随无涯，殆已 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">以有涯随无涯，殆已</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/21/Tree-Restoration/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Ridsea">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="以有涯随无涯，殆已">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="以有涯随无涯，殆已" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Tree restoration
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-21T21:45:29+08:00">
+                2017-04-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这也是一道编程题，当时写了好一会，这道题不难，题目的逻辑也很清楚，关键在于复现人在处理这个问题的思维。<a id="more"></a></p>
+<h3 id="Tree-Restoration"><a href="#Tree-Restoration" class="headerlink" title="Tree Restoration"></a>Tree Restoration</h3><p>There is a tree of N nodes which are numbered from 1 to N. Unfortunately, its edges are missing so we don’t know how the nodes are connected. Instead we know:  </p>
+<ol>
+<li>Which nodes are leaves  </li>
+<li>The distance (number of edges) between any pair of leaves</li>
+<li>The depth of every node (the root’s depth is 1)</li>
+<li>For the nodes on the same level, their order from left to right</li>
+</ol>
+<p>Can you restore the tree’s edges with these information? Note if node u is on the left of node v, u’s parent should not be on the right of v’s parent<br><img src="/2017/04/21/Tree-Restoration/tree.png" alt=""></p>
+<p>输入</p>
+<blockquote>
+<p>The first line contains three integers N, M and K. N is the number of nodes. M is the depth of the tree. K is the number of leaves.<br>The second line contains M integers A1, A2, … AM. Ai represents the number of nodes of depth i.<br>Then M lines follow. The ith of the M lines contains Ai numbers which are the nodes of depth i from left to right.<br>The (M+3)-th line contains K numbers L1, L2, … LK, indicating the leaves.<br>Then a K × K matrix D follows. Dij represents the distance between Li and Lj.<br>1 ≤ N ≤ 100 </p>
+</blockquote>
+<p>输出</p>
+<blockquote>
+<p>For every node from 1 to N output its parent. Output 0 for the root’s parent.</p>
+</blockquote>
+<p>样例输入</p>
+<blockquote>
+<p>8 3 5<br>1 3 4<br>1<br>2 3 4<br>5 6 7 8<br>3 5 6 7 8<br>0 3 3 3 3<br>3 0 2 4 4<br>3 2 0 4 4<br>3 4 4 0 2<br>3 4 4 2 0</p>
+</blockquote>
+<p>样例输出</p>
+<blockquote>
+<p>0 1 1 1 2 2 4 4</p>
+</blockquote>
+<h3 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h3><p>首先这道题给出了总节点个数（N），树的深度（M），叶子节点个数（K）。<br>接下来是每一层的叶子节点的个数。<br>接下来M行分别说明了每一层对应那些节点。<br>接下来就是K x K的矩阵，代表每个叶子节点之间的距离。<br>要求求解每个节点父节点，根节点的父节点为0。<br>这道题实际上是要我们根据叶子节点，以及叶子节点的距离重建这颗多叉树。考虑这样的一个事实，如果两个叶子节点有相同的父节点，那么它们之间的距离应该为2。<br>我们有每一层的节点信息，因此对于最底层的节点，必然都是叶子节点，此时它们分别对应其父节点，相当于一个多对多的关系，但是它们之间的对应关系可以根据叶子节点的距离来界定。<br>如图中，5和6的距离是2，因此是拥有一相同父节点，6和7之间距离不是2，因此拥有不同的父节点，7和8拥有相同的父节点，此时看上一层的信息，有2和4是非叶子节点，所以叶子节点被划分为两组，分别对应父节点2和4。<br>处理完了最底下的那一层，接下来如何处理上面的节点？我们要做的是把倒数第二层也当成叶子节点来处理，并且按这种思路逐步向上，直到根节点。<br>这是需要处理的关键问题就在于维护新的叶子节点的距离信息，新的叶子节点是原来叶子节点的父节点，所以该节点与其他节点的距离可以通过旧的叶子节点求出来。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_set&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_map&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> N, M, K;</div><div class="line">    <span class="built_in">cin</span> &gt;&gt; N &gt;&gt; M &gt;&gt; K;</div><div class="line">    <span class="keyword">int</span> num = M;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; levelnum;</div><div class="line">    <span class="keyword">while</span> (num--)&#123;</div><div class="line">        <span class="keyword">int</span> temp;</div><div class="line">        <span class="built_in">cin</span> &gt;&gt; temp;</div><div class="line">        levelnum.push_back(temp);</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; nodes;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; levelnum.size(); ++i)&#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec;</div><div class="line">        num = levelnum[i];</div><div class="line">        <span class="keyword">while</span> (num--)&#123;</div><div class="line">            <span class="keyword">int</span> temp;</div><div class="line">            <span class="built_in">cin</span> &gt;&gt; temp;</div><div class="line">            vec.push_back(temp);</div><div class="line">        &#125;</div><div class="line">        nodes.push_back(vec);</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; leafs;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; leafvec;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; K; ++i)&#123;</div><div class="line">        <span class="keyword">int</span> temp;</div><div class="line">        <span class="built_in">cin</span> &gt;&gt; temp;</div><div class="line">        leafs.insert(temp);</div><div class="line">        leafvec.push_back(temp);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; fathers(<span class="number">110</span>, <span class="number">0</span>);</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; distan(<span class="number">110</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(<span class="number">110</span>, <span class="number">0</span>));</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; K; ++i)&#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec;</div><div class="line">        <span class="keyword">int</span> temp;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; K; ++j)&#123;</div><div class="line">            <span class="built_in">cin</span> &gt;&gt; temp;</div><div class="line">            distan[leafvec[i]][leafvec[j]] = temp;</div><div class="line">            distan[leafvec[j]][leafvec[i]] = temp;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = nodes.size() - <span class="number">1</span>; i &gt; <span class="number">0</span>; --i)&#123;</div><div class="line">        <span class="keyword">int</span> fatherindex = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; nodes[i].size();)&#123;</div><div class="line">            <span class="keyword">while</span> (leafs.find(nodes[i - <span class="number">1</span>][fatherindex]) != leafs.end())&#123;</div><div class="line">                ++fatherindex;</div><div class="line">            &#125;</div><div class="line">            fathers[nodes[i][j]] = nodes[i - <span class="number">1</span>][fatherindex];</div><div class="line">            <span class="keyword">for</span> (<span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt;::iterator iter = leafs.begin(); iter != leafs.end(); ++iter)&#123;</div><div class="line">                <span class="keyword">if</span> (*iter != nodes[i][j])&#123;</div><div class="line">                    distan[*iter][nodes[i - <span class="number">1</span>][fatherindex]] = distan[*iter][nodes[i][j]] - <span class="number">1</span>;</div><div class="line">                    distan[nodes[i - <span class="number">1</span>][fatherindex]][*iter] = distan[*iter][nodes[i][j]] - <span class="number">1</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            leafs.erase(leafs.find(nodes[i][j]));</div><div class="line">            ++j;</div><div class="line">            <span class="keyword">while</span> (j &lt; nodes[i].size() &amp;&amp; distan[nodes[i][j]][nodes[i][j - <span class="number">1</span>]] == <span class="number">2</span>)&#123;</div><div class="line">                fathers[nodes[i][j]] = nodes[i - <span class="number">1</span>][fatherindex];</div><div class="line">                leafs.erase(leafs.find(nodes[i][j]));</div><div class="line">                ++j;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            leafs.insert(nodes[i - <span class="number">1</span>][fatherindex]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; ++i)&#123;</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; fathers[i] &lt;&lt; <span class="string">" "</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>整个代码比较长，首先nodes保存的是每一层的节点信息，leafs维护的是叶子节点的集合，leafvec保存的初始时刻的叶子节点，fathers用于记录每个节点的父节点，distan记录叶子节点之间的距离。<br>代码主要过程是：<br>(1)输入数据，把各相关数据初始化，记录初始时刻的叶子节点集合和每个叶子节点距离。<br>(2)找到上一层的首个非叶子节点，下标对应为fatherindex（对应下一层的最靠前的叶子节点）<br>(3)把下一层的第一个叶子节点的父节点设置为fatherindex对应节点，更新其他叶子节点到父节点的距离，从叶子节点中删除当前叶子节点<br>(4)寻找下一个同一个父节点的叶子节点，保存其父节点，并从leafs集合中删除<br>(5)把上面叶子节点的父节点加入到叶子节点的集合<br>(6)进入(2)，重复这一过程，直到到达树的根节点<br>其实只要想清楚了处理过程还是很容易理解的。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hihoCoder/" rel="tag"># hihoCoder</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/21/Legendary-items/" rel="next" title="Legendary items">
+                <i class="fa fa-chevron-left"></i> Legendary items
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Ridsea" />
+          <p class="site-author-name" itemprop="name">Ridsea</p>
+          <p class="site-description motion-element" itemprop="description">书写是为了更好地思考</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tree-Restoration"><span class="nav-number">1.</span> <span class="nav-text">Tree Restoration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析"><span class="nav-number">2.</span> <span class="nav-text">解析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ridsea</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 驱动
+</div>
+
+<div class="theme-info">
+  主题源自 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
